@@ -11,7 +11,7 @@ export class HeaderComponent {
     {
       label: 'Home',
       icon: 'pi pi-home',
-      routerLink: '/'
+      routerLink: '/dashboard'
     },
     {
       label: 'My Things',

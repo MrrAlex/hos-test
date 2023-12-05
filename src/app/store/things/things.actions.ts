@@ -1,0 +1,35 @@
+import { createAction, props } from '@ngrx/store';
+import { Thing } from '../../things/model/things.model';
+
+export const loadThings = createAction('[Container] Load Things');
+
+export const loadThingsSuccess = createAction(
+  '[Thing] Load Things Success',
+  props<{ things: Thing[] }>(),
+);
+
+export const loadThingsFail = createAction('[Thing] Load Things Failed');
+
+export const saveThing = createAction(
+  '[Thing] Save Thing',
+  props<{ thing: Thing }>(),
+);
+
+export const saveThingSuccess = createAction(
+  '[Thing] Save Thing Success',
+  props<{ thing: Thing }>(),
+);
+
+export const saveThingFail = createAction('[Thing] Save Thing Failed');
+
+export const updateThing = createAction(
+  '[Thing] Update Thing',
+  props<{ thing: Thing }>(),
+);
+
+export const updateThingSuccess = createAction(
+  '[Thing] Update Thing Success',
+  props<{ thing: Thing }>(),
+);
+
+export const updateThingFail = createAction('[Thing] Update Thing Failed');
