@@ -1,13 +1,13 @@
 <div *ngIf="thing">
   <div class="h-3rem flex align-items-center surface-800 text-white px-4">
-    <i *ngIf="thing.icon !== 'pi pi-ban'" [class]="thing.icon + ' mr-2'"></i>
+
     {{thing.name}}
   </div>
   <div style="min-height: 150px;" class="border-left-1 border-right-1 p-4 text-sm">
-    <div class="text-color-secondary">Description</div>
-    <div>{{thing.description}}</div>
-    <div class=" text-color-secondary mt-2">Volume</div>
-    <div>{{thing.volume}}</div>
+    <div>Volume</div>
+    <div class="text-color-secondary">{{thing.volume}}</div>
+    <div class="mt-2">Description</div>
+    <div class="text-color-secondary">{{thing.description}}</div>
   </div>
   <div class="h-3rem flex align-items-center surface-300 border-1 justify-content-between">
     <div>

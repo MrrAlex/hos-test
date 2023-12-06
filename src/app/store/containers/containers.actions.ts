@@ -28,7 +28,7 @@ export const saveContainerFail = createAction(
 
 export const assignThingsToContainer = createAction(
   '[Container] Assign Things',
-  props<{ container: Container }>(),
+  props<{ items: any[], id: string }>(),
 );
 
 export const assignThingsToContainerSuccess = createAction(

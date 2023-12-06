@@ -12,6 +12,7 @@ import {
   loadContainers,
   saveContainer,
   updateContainer,
+  assignThingsToContainer,
 } from './containers.actions';
 import { Container } from '../../containers/model/container.model';
 
@@ -46,5 +47,9 @@ export class ContainersFacade {
 
   deleteContainer(container: Container) {
     this.store.dispatch(deleteContainer({ container }));
+  }
+
+  assignItems(items: any[], id: string) {
+    this.store.dispatch(assignThingsToContainer({ items, id }));
   }
 }

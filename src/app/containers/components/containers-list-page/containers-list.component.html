@@ -1,0 +1,42 @@
+<h2>My Containers</h2>
+
+<a routerLink="/containers/add">
+  <p-button size="small" label="Add new container" icon="pi pi-plus"></p-button>
+</a>
+
+<p-table [value]="$any(containers$ | async)" styleClass="mt-4">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Volume</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>
+        <a [routerLink]="'/containers/' + product._id">
+          <i *ngIf="product.icon !== 'pi pi-ban'" [class]="product.icon + ' mr-2'"></i>
+          {{ product.name }}
+        </a>
+      </td>
+      <td>{{ product.volume }}</td>
+      <td>{{ product.description }}</td>
+      <td>
+        <div class="flex">
+          <a [routerLink]="'/containers/' + product._id + '/edit'">
+            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true"></p-button>
+          </a>
+          <p-button icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteContainer(product)"></p-button>
+          <a [routerLink]="'/containers/' + product._id">
+            <p-button icon="pi pi-eye" [rounded]="true" [text]="true"></p-button>
+          </a>
+          <a [routerLink]="'/containers/' + product._id + '/assign'">
+            <p-button icon="pi pi-cog" [rounded]="true" [text]="true"></p-button>
+          </a>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

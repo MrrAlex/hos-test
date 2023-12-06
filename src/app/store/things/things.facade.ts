@@ -1,7 +1,7 @@
 import { select, Store } from '@ngrx/store';
 import { ThingsState } from './things.reducer';
 import { Injectable } from '@angular/core';
-import { selectThingsLoading, selectAll } from './things.selectors';
+import {selectThingsLoading, selectAll, selectAvailable} from './things.selectors';
 import { loadThings, saveThing, updateThing, deleteThing } from './things.actions';
 import { Thing } from '../../things/model/things.model';
 
@@ -13,6 +13,7 @@ export class ThingsFacade {
 
   loading$ = this.store.pipe(select(selectThingsLoading));
   things$ = this.store.pipe(select(selectAll));
+  availableThings$ = this.store.pipe(select(selectAvailable));
 
   loadThingsList() {
     this.store.dispatch(loadThings());

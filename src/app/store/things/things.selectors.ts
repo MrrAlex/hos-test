@@ -9,3 +9,6 @@ export const selectThingsLoading = createSelector(
 );
 
 export const { selectAll } = thingsAdapter.getSelectors(getThingsState);
+export const selectAvailable = createSelector(selectAll, (all) =>
+  all.filter((t) => t.container),
+);

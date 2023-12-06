@@ -1,0 +1,14 @@
+<h2>
+  <hos-icon-display [item]="container"></hos-icon-display>
+  {{ container?.name }}
+</h2>
+
+<h3 class="mb-1">Information</h3>
+<p-card styleClass="mt-0 w-6">
+  <div class="font-bold">Description</div>
+  <div class="text-color-secondary mt-2">{{container?.description}}</div>
+  <div class="font-bold mt-4">Free space/Total Volume</div>
+  <div class="text-color-secondary mt-2">{{container?.freeSpace}}/{{container?.volume}}</div>
+</p-card>
+
+<h3>Contents</h3>

@@ -16,6 +16,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { ContainersAddFormSkeletonComponent } from './components/containers-add-form-skeleton/containers-add-form-skeleton.component';
 import {SkeletonModule} from "primeng/skeleton";
 import {TableModule} from "primeng/table";
+import { ContainersDisplayPageComponent } from './components/containers-display-page/containers-display-page.component';
+import {SharedModule} from "../shared/shared.module";
+import { ContainersAssignItemsPageComponent } from './components/containers-assign-items-page/containers-assign-items-page.component';
+import {PickListModule} from "primeng/picklist";
 
 
 @NgModule({
@@ -24,6 +28,8 @@ import {TableModule} from "primeng/table";
     ContainersAddPageComponent,
     ContainersAddFormComponent,
     ContainersAddFormSkeletonComponent,
+    ContainersDisplayPageComponent,
+    ContainersAssignItemsPageComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +44,8 @@ import {TableModule} from "primeng/table";
     ReactiveFormsModule,
     SkeletonModule,
     TableModule,
+    SharedModule,
+    PickListModule,
   ],
 })
 export class ContainersModule {}

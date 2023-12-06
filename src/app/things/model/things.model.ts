@@ -4,4 +4,5 @@ export interface Thing {
   _id: string;
   icon: string;
   description: string;
+  container: string;
 }

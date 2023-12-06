@@ -1,0 +1,25 @@
+<h2>Assign Items to Container</h2>
+
+<p-pickList [source]="sourceItems" [target]="targetItems" sourceHeader="Available" targetHeader="Selected"
+            [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
+            [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+  <ng-template let-product pTemplate="item">
+    <div class="flex justify-content-between">
+      <div>
+        <div>
+          <hos-icon-display [item]="product"></hos-icon-display>
+          <span class="font-bold">{{ product.name }}</span>
+        </div>
+        <div class="text-sm text-color-secondary">{{ product.type }}</div>
+      </div>
+      <span class="font-bold text-900">
+        <span *ngIf="product.type === 'Thing'">{{product.volume}}</span>
+        <span *ngIf="product.type === 'Container'">{{product.freeVolume}}</span>
+        <span class="text-sm text-color-secondary">sm³</span></span>
+    </div>
+  </ng-template>
+</p-pickList>
+
+<div class="mt-4">
+  <p-button size="small" label="Save" icon="pi pi-save" (onClick)="assignItems()"></p-button>
+</div>
