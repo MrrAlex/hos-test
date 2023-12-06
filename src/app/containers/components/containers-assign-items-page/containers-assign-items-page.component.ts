@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContainersFacade } from '../../../store/containers';
 import { ThingsFacade } from '../../../store/things';
-import { Thing } from '../../../things/model/things.model';
-import { Container } from '../../model/container.model';
+import { AssignItemDto, Container } from '../../model/container.model';
 import { combineLatest, take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -23,8 +22,11 @@ export class ContainersAssignItemsPageComponent implements OnInit {
   containerId!: string;
   container!: Container | undefined;
 
+  takenSpace = 0;
+  totalSpace!: number;
+
   ngOnInit() {
-    this.containerFacade.loadContainersList();
+    this.containerFacade.loadContainersList(true);
     this.thingsFacade.loadThingsList();
 
     this.route.params.pipe(take(1)).subscribe((params) => {
@@ -35,6 +37,8 @@ export class ContainersAssignItemsPageComponent implements OnInit {
           .selectEntityById$(params['id'])
           .subscribe((container) => {
             this.container = container;
+            this.totalSpace = container?.volume as number;
+            this.takenSpace = container?.takenSpace as number;
             this.targetItems = [
               ...this.parseItems('Container', container?.containers),
               ...this.parseItems('Thing', container?.things),
@@ -44,21 +48,36 @@ export class ContainersAssignItemsPageComponent implements OnInit {
     });
 
     combineLatest([
-      this.containerFacade.containers$,
-      this.thingsFacade.things$,
+      this.containerFacade.selectAvailableContainers(this.containerId),
+      this.thingsFacade.availableThings$,
     ]).subscribe(([c, t]) => {
       this.sourceItems = [
-        ...this.parseItems('Container', c),
+        ...this.parseItems(
+          'Container',
+          c.filter((cont) => cont._id !== this.containerId),
+        ),
         ...this.parseItems('Thing', t),
       ];
     });
   }
 
   assignItems() {
-    this.containerFacade.assignItems(this.targetItems, this.containerId);
+    this.containerFacade.assignItems(
+      this.targetItems.map(
+        (i): AssignItemDto => ({ _id: i._id, type: i.type }),
+      ),
+      this.containerId,
+    );
   }
 
   private parseItems(type: string, items?: any[]) {
-    return items?.map((i) => ({ ...i, type })) ?? [];
+    return items?.map((i) => ({ ...i, type, disabled: true })) ?? [];
+  }
+
+  calculateTotalSpace() {
+    this.takenSpace = this.targetItems.reduce((acc, next) => {
+      const space = next.type === 'Thing' ? next.volume : next.takenSpace;
+      return acc + space;
+    }, 0);
   }
 }

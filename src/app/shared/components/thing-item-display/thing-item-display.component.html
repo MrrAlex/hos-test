@@ -1,0 +1,29 @@
+<div *ngIf="thing" class="flex h-full flex-column">
+  <div class="h-3rem flex align-items-center surface-800 text-white px-4 border-round-top"
+       [class.justify-content-center]="size=== 'small'">
+    <hos-icon-display [item]="thing"></hos-icon-display>
+    {{thing.name}}
+  </div>
+  <div class="border-left-1 border-right-1 p-4 text-sm flex-grow-1">
+    <div>Volume</div>
+    <div class="text-color-secondary">{{thing.volume}}</div>
+    <div *ngIf="!isSmall">
+      <div class="mt-2">Description</div>
+      <div class="text-color-secondary">{{thing.description}}</div>
+      <div class="mt-2" *ngIf="thing.container">
+        <div class="mt-2">Currently in</div>
+        <div class="font-bold"><a [routerLink]="'/containers/' + thing.container._id">{{thing.container.name}}</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="h-3rem flex align-items-center border-1 justify-content-between border-round-bottom" [class.surface-100]="isSmall"
+       [class.surface-300]="!isSmall">
+    <div>
+      <p-button icon="pi pi-star" [rounded]="true" [text]="true" (onClick)="editThing()"></p-button>
+    </div>
+    <div *ngIf="!isSmall">
+      <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" (onClick)="editThing()"></p-button>
+      <p-button icon="pi pi-trash" [rounded]="true" [text]="true" (onClick)="deleteThing()"></p-button>
+    </div>
+  </div>
+</div>

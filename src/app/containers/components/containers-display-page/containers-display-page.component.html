@@ -3,12 +3,29 @@
   {{ container?.name }}
 </h2>
 
-<h3 class="mb-1">Information</h3>
+<h3 class="mb-2">Information</h3>
 <p-card styleClass="mt-0 w-6">
   <div class="font-bold">Description</div>
   <div class="text-color-secondary mt-2">{{container?.description}}</div>
-  <div class="font-bold mt-4">Free space/Total Volume</div>
-  <div class="text-color-secondary mt-2">{{container?.freeSpace}}/{{container?.volume}}</div>
+  <div class="font-bold mt-4">Taken space/Total Volume</div>
+  <div class="text-color-secondary mt-2">{{container?.takenSpace}}/{{container?.volume}}</div>
 </p-card>
 
-<h3>Contents</h3>
+<h3 class="mb-2">Contents</h3>
+<p-card styleClass="mb-4">
+  <h4 class="my-2">Containers</h4>
+  <div class="grid">
+    <div class="col-2" *ngFor="let container of container?.containers">
+      <hos-thing-item-display size="small" [thing]="container"></hos-thing-item-display>
+    </div>
+  </div>
+</p-card>
+
+<p-card>
+  <h3>Items</h3>
+  <div class="grid">
+    <div class="col-2" *ngFor="let thing of container?.things">
+      <hos-thing-item-display size="small" [thing]="thing"></hos-thing-item-display>
+    </div>
+  </div>
+</p-card>

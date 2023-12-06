@@ -6,6 +6,7 @@
   <div class="w-full mt-2">
     <h4 class="mt-0 mb-2">Volume</h4>
     <p-inputNumber [min]="1" [formControl]="volume" class="w-full"/>
+    <span class="text-xs text-color-secondary" *ngIf="container && container.takenSpace">Minimum value - {{container.takenSpace}}</span>
   </div>
   <div class="w-full mt-2">
     <h4 class="mt-0 mb-2">Icon</h4>

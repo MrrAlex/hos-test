@@ -33,8 +33,8 @@ export class ContainersEffects {
   loadContainers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ContainerActions.loadContainers),
-      switchMap(() =>
-        this.endpointsService.loadContainers().pipe(
+      switchMap(({includeChildContainers}) =>
+        this.endpointsService.loadContainers(includeChildContainers).pipe(
           map((updated) =>
             ContainerActions.loadContainersSuccess({ containers: updated }),
           ),
@@ -81,6 +81,20 @@ export class ContainersEffects {
             ContainerActions.deleteContainerSuccess({ container: updated }),
           ),
           catchError(() => of(ContainerActions.deleteContainerFail())),
+        ),
+      ),
+    ),
+  );
+
+  assignItems$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ContainerActions.assignThingsToContainer),
+      switchMap(({ id, items }) =>
+        this.endpointsService.assignItemsToContainer(id, items).pipe(
+          map(() =>
+            ContainerActions.assignThingsToContainerSuccess(),
+          ),
+          catchError(() => of(ContainerActions.assignThingsToContainerFail())),
         ),
       ),
     ),

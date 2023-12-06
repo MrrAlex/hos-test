@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { Container } from '../../containers/model/container.model';
+import {AssignItemDto, Container} from '../../containers/model/container.model';
 
-export const loadContainers = createAction('[Container] Load Containers');
+export const loadContainers = createAction('[Container] Load Containers',
+  props<{ includeChildContainers: boolean }>(),);
 
 export const loadContainersSuccess = createAction(
   '[Container] Load Containers Success',
@@ -28,13 +29,10 @@ export const saveContainerFail = createAction(
 
 export const assignThingsToContainer = createAction(
   '[Container] Assign Things',
-  props<{ items: any[], id: string }>(),
+  props<{ items: AssignItemDto[], id: string }>(),
 );
 
-export const assignThingsToContainerSuccess = createAction(
-  '[Container] Assign Things Success',
-  props<{ container: Container }>(),
-);
+export const assignThingsToContainerSuccess = createAction('[Container] Assign Things Success');
 
 export const assignThingsToContainerFail = createAction(
   '[Container] Assign Things Failed',

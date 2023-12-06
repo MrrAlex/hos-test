@@ -1,8 +1,19 @@
 <h2>Assign Items to Container</h2>
 
-<p-pickList [source]="sourceItems" [target]="targetItems" sourceHeader="Available" targetHeader="Selected"
+
+<p-pickList [source]="sourceItems" [target]="targetItems" sourceHeader="Available" targetHeader=""
             [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
-            [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+            [targetStyle]="{ height: '30rem' }" breakpoint="1400px" (onMoveToTarget)="calculateTotalSpace()"
+            (onMoveAllToTarget)="calculateTotalSpace()" (onMoveToSource)="calculateTotalSpace()"
+            (onMoveAllToSource)="calculateTotalSpace()">
+  <ng-template pTemplate="targetHeader">
+    Selected items <span [class.text-red-400]="takenSpace > totalSpace">
+    ({{takenSpace}}
+    <span class="text-sm ml-1">sm³</span>
+    /{{totalSpace}}
+    <span class="text-sm ml-1">sm³</span>)
+    </span>
+  </ng-template>
   <ng-template let-product pTemplate="item">
     <div class="flex justify-content-between">
       <div>
@@ -14,12 +25,13 @@
       </div>
       <span class="font-bold text-900">
         <span *ngIf="product.type === 'Thing'">{{product.volume}}</span>
-        <span *ngIf="product.type === 'Container'">{{product.freeVolume}}</span>
-        <span class="text-sm text-color-secondary">sm³</span></span>
+        <span *ngIf="product.type === 'Container'">{{product.takenSpace}}</span>
+        <span class="text-sm text-color-secondary ml-1">sm³</span></span>
     </div>
   </ng-template>
 </p-pickList>
 
 <div class="mt-4">
-  <p-button size="small" label="Save" icon="pi pi-save" (onClick)="assignItems()"></p-button>
+  <p-button size="small" label="Save" icon="pi pi-save" (onClick)="assignItems()"
+            [disabled]="takenSpace > totalSpace"></p-button>
 </div>

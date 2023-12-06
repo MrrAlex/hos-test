@@ -2,19 +2,23 @@ import { select, Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {
   selectAll,
+  selectAvailable,
   selectById,
   selectContainersLoading,
 } from './containers.selectors';
 import { ContainerState } from './containers.reducer';
 import {
+  assignThingsToContainer,
   deleteContainer,
   loadContainer,
   loadContainers,
   saveContainer,
   updateContainer,
-  assignThingsToContainer,
 } from './containers.actions';
-import { Container } from '../../containers/model/container.model';
+import {
+  AssignItemDto,
+  Container,
+} from '../../containers/model/container.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +29,16 @@ export class ContainersFacade {
   loading$ = this.store.pipe(select(selectContainersLoading));
   containers$ = this.store.pipe(select(selectAll));
 
+  public selectAvailableContainers(id: string) {
+    return this.store.pipe(select(selectAvailable(id)))
+  }
+
   public selectEntityById$(id: string) {
     return this.store.pipe(select(selectById(id)));
   }
 
-  loadContainersList() {
-    this.store.dispatch(loadContainers());
+  loadContainersList(includeChildContainers = false) {
+    this.store.dispatch(loadContainers({includeChildContainers}));
   }
 
   saveNewThing(container: Container) {
@@ -49,7 +57,7 @@ export class ContainersFacade {
     this.store.dispatch(deleteContainer({ container }));
   }
 
-  assignItems(items: any[], id: string) {
+  assignItems(items: AssignItemDto[], id: string) {
     this.store.dispatch(assignThingsToContainer({ items, id }));
   }
 }

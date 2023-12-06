@@ -42,6 +42,7 @@ export class ContainersAddFormComponent {
       name: this.fb.control(this.container?.name ?? '', Validators.required),
       volume: this.fb.control(this.container?.volume ?? 0, [
         Validators.required,
+        Validators.min(this.container?.takenSpace ?? 0),
       ]),
       icon: this.fb.control(
         this.container?.icon ?? PrimeIcons.BAN,

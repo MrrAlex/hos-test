@@ -53,7 +53,10 @@ export const containerReducer = createReducer(
     ...state,
     ...errorMessage('Something went wrong, please check back later.'),
   })),
-  on(ContainerActions.deleteContainer, (state) => ({ ...state, loading: true })),
+  on(ContainerActions.deleteContainer, (state) => ({
+    ...state,
+    loading: true,
+  })),
   on(ContainerActions.deleteContainerSuccess, (state, { container }) =>
     constainerAdapter.removeOne(container._id, {
       ...state,
@@ -61,6 +64,18 @@ export const containerReducer = createReducer(
     }),
   ),
   on(ContainerActions.deleteContainerFail, (state) => ({
+    ...state,
+    ...errorMessage('Something went wrong, please check back later.'),
+  })),
+  on(ContainerActions.assignThingsToContainer, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(ContainerActions.assignThingsToContainerSuccess, (state, {}) => ({
+    ...state,
+    ...successMessage('Container was successfully removed.'),
+  })),
+  on(ContainerActions.assignThingsToContainerFail, (state) => ({
     ...state,
     ...errorMessage('Something went wrong, please check back later.'),
   })),
