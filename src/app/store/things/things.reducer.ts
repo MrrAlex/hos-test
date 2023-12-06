@@ -18,7 +18,7 @@ export const initialState: ThingsState = thingsAdapter.getInitialState({
   success: undefined,
 });
 
-export const containerReducer = createReducer(
+export const thingsReducer = createReducer(
   initialState,
   on(ThingsActions.loadThings, (state) => ({ ...state, loading: true })),
   on(ThingsActions.loadThingsSuccess, (state, { things }) =>
@@ -39,6 +39,28 @@ export const containerReducer = createReducer(
     }),
   ),
   on(ThingsActions.saveThingFail, (state) => ({
+    ...state,
+    ...errorMessage('Something went wrong, please check back later.'),
+  })),
+  on(ThingsActions.updateThing, (state) => ({ ...state, loading: true })),
+  on(ThingsActions.updateThingSuccess, (state, { thing }) =>
+    thingsAdapter.setOne(thing, {
+      ...state,
+      ...successMessage('Thing was successfully created.'),
+    }),
+  ),
+  on(ThingsActions.updateThingFail, (state) => ({
+    ...state,
+    ...errorMessage('Something went wrong, please check back later.'),
+  })),
+  on(ThingsActions.deleteThing, (state) => ({ ...state, loading: true })),
+  on(ThingsActions.deleteThingSuccess, (state, { thing }) =>
+    thingsAdapter.removeOne(thing._id, {
+      ...state,
+      ...successMessage('Thing was successfully deleted.'),
+    }),
+  ),
+  on(ThingsActions.deleteThingFail, (state) => ({
     ...state,
     ...errorMessage('Something went wrong, please check back later.'),
   })),

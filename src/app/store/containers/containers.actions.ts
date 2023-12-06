@@ -67,3 +67,17 @@ export const updateContainerSuccess = createAction(
 export const updateContainerFail = createAction(
   '[Container] Update Container Failed',
 );
+
+export const deleteContainer = createAction(
+  '[Container] Delete Container',
+  props<{ container: Container }>(),
+);
+
+export const deleteContainerSuccess = createAction(
+  '[Container] Delete Container Success',
+  props<{ container: Container }>(),
+);
+
+export const deleteContainerFail = createAction(
+  '[Container] Delete Container Failed',
+);

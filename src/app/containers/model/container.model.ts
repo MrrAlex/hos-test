@@ -3,4 +3,5 @@ export interface Container {
   icon: string;
   _id: string;
   volume: number;
+  description: number;
 }

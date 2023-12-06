@@ -3,4 +3,5 @@ export interface Thing {
   volume: number;
   _id: string;
   icon: string;
+  description: string;
 }

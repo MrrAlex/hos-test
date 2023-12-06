@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { constainerAdapter } from '../containers';
-import { ThingsState } from './things.reducer';
+import { thingsAdapter, ThingsState } from './things.reducer';
 
 export const getThingsState = createFeatureSelector<ThingsState>('things');
 
@@ -9,4 +8,4 @@ export const selectThingsLoading = createSelector(
   (state) => state?.loading,
 );
 
-export const { selectAll } = constainerAdapter.getSelectors(getThingsState);
+export const { selectAll } = thingsAdapter.getSelectors(getThingsState);

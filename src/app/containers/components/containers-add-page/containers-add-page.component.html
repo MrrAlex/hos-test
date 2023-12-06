@@ -1,0 +1,9 @@
+<h2>
+  <span *ngIf="!containerId">Add New</span>
+  <span *ngIf="containerId">Edit</span>
+  Container</h2>
+<p-card>
+  <hos-containers-add-form-skeleton *ngIf="containerId && !(container$ | async)"></hos-containers-add-form-skeleton>
+  <hos-containers-add-form *ngIf="!containerId || containerId && (container$ | async)" (saved)="saveContainer($event)"
+                           [container]="container$ | async"></hos-containers-add-form>
+</p-card>

@@ -6,6 +6,14 @@ import { ThingsListComponent } from './components/things-list-page/things-list.c
 import { ThingsListTableComponent } from './components/things-list-table/things-list-table.component';
 import { ThingItemDisplayComponent } from './components/thing-item-display/thing-item-display.component';
 import { ThingsAddItemModalComponent } from './components/things-add-item-modal/things-add-item-modal.component';
+import {ButtonModule} from "primeng/button";
+import {DialogService} from "primeng/dynamicdialog";
+import {ReactiveFormsModule} from "@angular/forms";
+import {InputTextModule} from "primeng/inputtext";
+import {PaginatorModule} from "primeng/paginator";
+import {SelectButtonModule} from "primeng/selectbutton";
+import {SkeletonModule} from "primeng/skeleton";
+import {InputTextareaModule} from "primeng/inputtextarea";
 
 
 @NgModule({
@@ -13,11 +21,19 @@ import { ThingsAddItemModalComponent } from './components/things-add-item-modal/
     ThingsListComponent,
     ThingsListTableComponent,
     ThingItemDisplayComponent,
-    ThingsAddItemModalComponent
+    ThingsAddItemModalComponent,
   ],
   imports: [
     CommonModule,
-    ThingsRoutingModule
-  ]
+    ThingsRoutingModule,
+    ButtonModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    PaginatorModule,
+    SelectButtonModule,
+    SkeletonModule,
+    InputTextareaModule,
+  ],
+  providers: [DialogService],
 })
-export class ThingsModule { }
+export class ThingsModule {}

@@ -30,10 +30,36 @@ export class ThingsEffects {
       ofType(ThingsActions.saveThing),
       switchMap(({ thing }) =>
         this.endpointsService.saveThing(thing).pipe(
-          map((updated) =>
-            ThingsActions.saveThingSuccess({ thing: updated }),
-          ),
+          map((updated) => ThingsActions.saveThingSuccess({ thing: updated })),
           catchError(() => of(ThingsActions.saveThingFail())),
+        ),
+      ),
+    ),
+  );
+
+  updateThing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ThingsActions.updateThing),
+      switchMap(({ thing }) =>
+        this.endpointsService.updateThing(thing).pipe(
+          map((updated) =>
+            ThingsActions.updateThingSuccess({ thing: updated }),
+          ),
+          catchError(() => of(ThingsActions.updateThingFail())),
+        ),
+      ),
+    ),
+  );
+
+  deleteThing$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ThingsActions.deleteThing),
+      switchMap(({ thing }) =>
+        this.endpointsService.deleteThing(thing).pipe(
+          map((updated) =>
+            ThingsActions.deleteThingSuccess({ thing: updated }),
+          ),
+          catchError(() => of(ThingsActions.deleteThingFail())),
         ),
       ),
     ),

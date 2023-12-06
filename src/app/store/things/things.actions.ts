@@ -33,3 +33,15 @@ export const updateThingSuccess = createAction(
 );
 
 export const updateThingFail = createAction('[Thing] Update Thing Failed');
+
+export const deleteThing = createAction(
+  '[Thing] Delete Thing',
+  props<{ thing: Thing }>(),
+);
+
+export const deleteThingSuccess = createAction(
+  '[Thing] Delete Thing Success',
+  props<{ thing: Thing }>(),
+);
+
+export const deleteThingFail = createAction('[Thing] Delete Thing Failed');

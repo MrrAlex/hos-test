@@ -22,6 +22,10 @@ export class ThingsEndpointsService {
   }
 
   public updateThing(thing: Thing) {
-    return this.http.post<Thing>(Constants.thingByIdApi(thing.id), thing);
+    return this.http.post<Thing>(Constants.thingByIdApi(thing._id), thing);
+  }
+
+  public deleteThing(thing: Thing) {
+    return this.http.delete<Thing>(Constants.thingByIdApi(thing._id));
   }
 }

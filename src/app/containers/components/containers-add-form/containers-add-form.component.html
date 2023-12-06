@@ -1,4 +1,4 @@
-<form (ngSubmit)="goSave()" [formGroup]="thingGroup" *ngIf="thingGroup">
+<form (ngSubmit)="goSave()" [formGroup]="containerForm" *ngIf="containerForm">
   <div class="w-full">
     <h4 class="mt-0 mb-2">Name</h4>
     <input pInputText [formControl]="name" class="w-full"/>
@@ -9,7 +9,7 @@
   </div>
   <div class="w-full mt-2">
     <h4 class="mt-0 mb-2">Icon</h4>
-    <p-selectButton [options]="thingsOptions" [formControl]="icon">
+    <p-selectButton [options]="containerOptions" [formControl]="icon">
       <ng-template let-item pTemplate>
         <i [class]="item"></i>
       </ng-template>
@@ -20,8 +20,6 @@
     <textarea pInputTextarea [formControl]="description" class="w-12 h-6rem"></textarea>
   </div>
   <div class="flex mt-4">
-    <button class="p-button-sm p-button-secondary mr-3" type="button" pButton label="Cancel"
-            (click)="close()"></button>
-    <button class="p-button-sm" type="submit" pButton label="Save" [disabled]="!thingGroup.valid"></button>
+    <button class="p-button-sm" type="submit" pButton label="Save" [disabled]="!containerForm.valid"></button>
   </div>
 </form>

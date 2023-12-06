@@ -8,4 +8,7 @@ export const selectContainersLoading = createSelector(
   (state) => state?.loading
 );
 
-export const { selectAll } = constainerAdapter.getSelectors(getContainerState);
+export const { selectAll, selectEntities } = constainerAdapter.getSelectors(getContainerState);
+
+export const selectById = (id: string) =>
+  createSelector(selectEntities, (entities) => entities && entities[id]);

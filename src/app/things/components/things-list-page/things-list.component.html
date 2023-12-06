@@ -1,2 +1,3 @@
 <h2>My Things</h2>
-<hos-things-list-table></hos-things-list-table>
+<p-button size="small" label="Add new thing" icon="pi pi-plus" [loading]="loading" (click)="modifyThing()"></p-button>
+<hos-things-list-table [loading]="loading" (thingEdited)="modifyThing($event)" (thingDeleted)="deleteThing($event)"></hos-things-list-table>

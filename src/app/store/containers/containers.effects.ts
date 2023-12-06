@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { ContainerEndpointsService } from '../../services/container-endpoints.service';
 import * as ContainerActions from './containers.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ContainersEffects {
   constructor(
     private actions$: Actions,
     private endpointsService: ContainerEndpointsService,
+    private router: Router,
   ) {}
 
   createContainer$ = createEffect(() =>
@@ -18,6 +20,9 @@ export class ContainersEffects {
         this.endpointsService.saveContainer(container).pipe(
           map((updated) =>
             ContainerActions.saveContainerSuccess({ container: updated }),
+          ),
+          tap((updated) =>
+            this.router.navigate(['/', 'containers', updated.container._id]),
           ),
           catchError(() => of(ContainerActions.saveContainerFail())),
         ),
@@ -62,6 +67,20 @@ export class ContainersEffects {
             ContainerActions.updateContainerSuccess({ container: updated }),
           ),
           catchError(() => of(ContainerActions.updateContainerFail())),
+        ),
+      ),
+    ),
+  );
+
+  deleteContainer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ContainerActions.deleteContainer),
+      switchMap(({ container }) =>
+        this.endpointsService.deleteContainer(container).pipe(
+          map((updated) =>
+            ContainerActions.deleteContainerSuccess({ container: updated }),
+          ),
+          catchError(() => of(ContainerActions.deleteContainerFail())),
         ),
       ),
     ),

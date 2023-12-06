@@ -14,4 +14,8 @@ export class HttpService {
   post<T>(url: string, payload: any, params?: any) {
     return this.http.post<T>(url, payload, { params });
   }
+
+  delete<T>(url: string, params?: any) {
+    return this.http.delete<T>(url, { params });
+  }
 }

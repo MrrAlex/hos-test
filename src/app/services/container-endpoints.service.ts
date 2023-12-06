@@ -23,6 +23,10 @@ export class ContainerEndpointsService {
   }
 
   public updateContainer(container: Container) {
-    return this.http.post<Container>(Constants.containerByIdApi(container.id), container)
+    return this.http.post<Container>(Constants.containerByIdApi(container._id), container)
+  }
+
+  public deleteContainer(container: Container) {
+    return this.http.delete<Container>(Constants.containerByIdApi(container._id))
   }
 }
