@@ -1,13 +1,13 @@
 export const successMessage = (successMessage: string | null) => ({
   loading: false,
   success: true,
-  errorMessage: null,
   successMessage,
 });
 
-export const errorMessage = (errorMessage: string) => ({
-  loading: false,
-  success: false,
-  successMessage: null,
-  errorMessage,
-});
+export const errorMessage = (errorMessage: string, messageString: string) => {
+  return {
+    loading: false,
+    success: false,
+    errorMessage: errorMessage + ' ' + messageString ?? '',
+  };
+};

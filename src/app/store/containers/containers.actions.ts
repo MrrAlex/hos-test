@@ -11,6 +11,7 @@ export const loadContainersSuccess = createAction(
 
 export const loadContainersFail = createAction(
   '[Container] Load Containers Failed',
+  props<{ message: string }>(),
 );
 
 export const saveContainer = createAction(
@@ -25,6 +26,7 @@ export const saveContainerSuccess = createAction(
 
 export const saveContainerFail = createAction(
   '[Container] Save Container Failed',
+  props<{ message: string }>(),
 );
 
 export const assignThingsToContainer = createAction(
@@ -36,6 +38,7 @@ export const assignThingsToContainerSuccess = createAction('[Container] Assign T
 
 export const assignThingsToContainerFail = createAction(
   '[Container] Assign Things Failed',
+  props<{ message: string }>(),
 );
 
 export const loadContainer = createAction(
@@ -50,6 +53,7 @@ export const loadContainerSuccess = createAction(
 
 export const loadContainerFail = createAction(
   '[Container] Load Container Failed',
+  props<{ message: string }>(),
 );
 
 export const updateContainer = createAction(
@@ -64,6 +68,7 @@ export const updateContainerSuccess = createAction(
 
 export const updateContainerFail = createAction(
   '[Container] Update Container Failed',
+  props<{ message: string }>(),
 );
 
 export const deleteContainer = createAction(
@@ -78,4 +83,5 @@ export const deleteContainerSuccess = createAction(
 
 export const deleteContainerFail = createAction(
   '[Container] Delete Container Failed',
+  props<{ message: string }>(),
 );

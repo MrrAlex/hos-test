@@ -1,11 +1,12 @@
+<div class="mt-2">
+  <p-button (onClick)="back()" label="Back" icon="pi pi-chevron-left" size="small"></p-button>
+</div>
 <h2>Assign Items to Container</h2>
-
-
 <p-pickList [source]="sourceItems" [target]="targetItems" sourceHeader="Available" targetHeader=""
             [dragdrop]="true" [responsive]="true" [sourceStyle]="{ height: '30rem' }"
             [targetStyle]="{ height: '30rem' }" breakpoint="1400px" (onMoveToTarget)="calculateTotalSpace()"
             (onMoveAllToTarget)="calculateTotalSpace()" (onMoveToSource)="calculateTotalSpace()"
-            (onMoveAllToSource)="calculateTotalSpace()">
+            (onMoveAllToSource)="calculateTotalSpace()" [disabled]="containerLoading || thingLoading">
   <ng-template pTemplate="targetHeader">
     Selected items <span [class.text-red-400]="takenSpace > totalSpace">
     ({{takenSpace}}
@@ -33,5 +34,5 @@
 
 <div class="mt-4">
   <p-button size="small" label="Save" icon="pi pi-save" (onClick)="assignItems()"
-            [disabled]="takenSpace > totalSpace"></p-button>
+            [disabled]="takenSpace > totalSpace" [loading]="containerLoading || thingLoading"></p-button>
 </div>

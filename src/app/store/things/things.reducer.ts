@@ -7,6 +7,8 @@ import { errorMessage, successMessage } from '../utils';
 export interface ThingsState extends EntityState<Thing> {
   loading: boolean;
   success?: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
 }
 
 export const thingsAdapter = createEntityAdapter<Thing>({
@@ -16,6 +18,8 @@ export const thingsAdapter = createEntityAdapter<Thing>({
 export const initialState: ThingsState = thingsAdapter.getInitialState({
   loading: false,
   success: undefined,
+  errorMessage: null,
+  successMessage: null,
 });
 
 export const thingsReducer = createReducer(
@@ -24,12 +28,12 @@ export const thingsReducer = createReducer(
   on(ThingsActions.loadThingsSuccess, (state, { things }) =>
     thingsAdapter.setMany(things, {
       ...state,
-      ...successMessage(null),
+      loading: false,
     }),
   ),
-  on(ThingsActions.loadThingsFail, (state) => ({
+  on(ThingsActions.loadThingsFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ThingsActions.saveThing, (state) => ({ ...state, loading: true })),
   on(ThingsActions.saveThingSuccess, (state, { thing }) =>
@@ -38,20 +42,20 @@ export const thingsReducer = createReducer(
       ...successMessage('Thing was successfully created.'),
     }),
   ),
-  on(ThingsActions.saveThingFail, (state) => ({
+  on(ThingsActions.saveThingFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ThingsActions.updateThing, (state) => ({ ...state, loading: true })),
   on(ThingsActions.updateThingSuccess, (state, { thing }) =>
     thingsAdapter.setOne(thing, {
       ...state,
-      ...successMessage('Thing was successfully created.'),
+      ...successMessage('Thing was successfully updated.'),
     }),
   ),
-  on(ThingsActions.updateThingFail, (state) => ({
+  on(ThingsActions.updateThingFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ThingsActions.deleteThing, (state) => ({ ...state, loading: true })),
   on(ThingsActions.deleteThingSuccess, (state, { thing }) =>
@@ -60,8 +64,8 @@ export const thingsReducer = createReducer(
       ...successMessage('Thing was successfully deleted.'),
     }),
   ),
-  on(ThingsActions.deleteThingFail, (state) => ({
+  on(ThingsActions.deleteThingFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
 );

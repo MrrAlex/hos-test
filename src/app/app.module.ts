@@ -10,10 +10,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AppStoreModule } from './store/store.module';
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {ToastModule} from "primeng/toast";
 
 const routes: Routes = [
   {
@@ -51,9 +52,10 @@ const routes: Routes = [
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: false }),
     AppStoreModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

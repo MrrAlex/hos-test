@@ -1,8 +1,20 @@
 import { select, Store } from '@ngrx/store';
 import { ThingsState } from './things.reducer';
 import { Injectable } from '@angular/core';
-import {selectThingsLoading, selectAll, selectAvailable} from './things.selectors';
-import { loadThings, saveThing, updateThing, deleteThing } from './things.actions';
+import {
+  selectThingsLoading,
+  selectAll,
+  selectAvailable,
+  selectThingsByIds,
+  selectErrorMessage,
+  selectSuccessMessage,
+} from './things.selectors';
+import {
+  loadThings,
+  saveThing,
+  updateThing,
+  deleteThing,
+} from './things.actions';
 import { Thing } from '../../things/model/things.model';
 
 @Injectable({
@@ -14,6 +26,8 @@ export class ThingsFacade {
   loading$ = this.store.pipe(select(selectThingsLoading));
   things$ = this.store.pipe(select(selectAll));
   availableThings$ = this.store.pipe(select(selectAvailable));
+  errorMessage$ = this.store.pipe(select(selectErrorMessage));
+  successMessage$ = this.store.pipe(select(selectSuccessMessage));
 
   loadThingsList() {
     this.store.dispatch(loadThings());
@@ -29,5 +43,9 @@ export class ThingsFacade {
 
   deleteThing(thing: Thing) {
     this.store.dispatch(deleteThing({ thing }));
+  }
+
+  containerThings$(ids: string[]) {
+    return this.store.pipe(select(selectThingsByIds(ids)));
   }
 }

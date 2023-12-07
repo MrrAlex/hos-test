@@ -7,6 +7,8 @@ import { errorMessage, successMessage } from '../utils';
 export interface ContainerState extends EntityState<Container> {
   loading: boolean;
   success?: boolean;
+  errorMessage: string | null;
+  successMessage: string | null;
 }
 
 export const constainerAdapter = createEntityAdapter<Container>({
@@ -16,6 +18,8 @@ export const constainerAdapter = createEntityAdapter<Container>({
 export const initialState: ContainerState = constainerAdapter.getInitialState({
   loading: false,
   success: undefined,
+  errorMessage: null,
+  successMessage: null,
 });
 
 export const containerReducer = createReducer(
@@ -24,23 +28,23 @@ export const containerReducer = createReducer(
   on(ContainerActions.loadContainersSuccess, (state, { containers }) =>
     constainerAdapter.setMany(containers, {
       ...state,
-      ...successMessage(null),
+      loading: false,
     }),
   ),
-  on(ContainerActions.loadContainersFail, (state) => ({
+  on(ContainerActions.loadContainersFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ContainerActions.loadContainer, (state) => ({ ...state, loading: true })),
   on(ContainerActions.loadContainerSuccess, (state, { container }) =>
     constainerAdapter.setOne(container, {
       ...state,
-      ...successMessage(null),
+      loading: false,
     }),
   ),
-  on(ContainerActions.loadContainerFail, (state) => ({
+  on(ContainerActions.loadContainerFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ContainerActions.saveContainer, (state) => ({ ...state, loading: true })),
   on(ContainerActions.saveContainerSuccess, (state, { container }) =>
@@ -49,9 +53,9 @@ export const containerReducer = createReducer(
       ...successMessage('Container was successfully created.'),
     }),
   ),
-  on(ContainerActions.saveContainerFail, (state) => ({
+  on(ContainerActions.saveContainerFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ContainerActions.deleteContainer, (state) => ({
     ...state,
@@ -63,9 +67,9 @@ export const containerReducer = createReducer(
       ...successMessage('Container was successfully removed.'),
     }),
   ),
-  on(ContainerActions.deleteContainerFail, (state) => ({
+  on(ContainerActions.deleteContainerFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
   on(ContainerActions.assignThingsToContainer, (state) => ({
     ...state,
@@ -73,10 +77,22 @@ export const containerReducer = createReducer(
   })),
   on(ContainerActions.assignThingsToContainerSuccess, (state, {}) => ({
     ...state,
-    ...successMessage('Container was successfully removed.'),
+    ...successMessage('Items were assigned to container.'),
   })),
-  on(ContainerActions.assignThingsToContainerFail, (state) => ({
+  on(ContainerActions.assignThingsToContainerFail, (state, { message }) => ({
     ...state,
-    ...errorMessage('Something went wrong, please check back later.'),
+    ...errorMessage('Something went wrong, please check back later.', message),
+  })),
+  on(ContainerActions.updateContainer, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(ContainerActions.updateContainerSuccess, (state, {}) => ({
+    ...state,
+    ...successMessage('Container was successfully updated.'),
+  })),
+  on(ContainerActions.updateContainerFail, (state, { message }) => ({
+    ...state,
+    ...errorMessage('Something went wrong, please check back later.', message),
   })),
 );

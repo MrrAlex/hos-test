@@ -1,31 +1,42 @@
-<h2>
-  <hos-icon-display [item]="container"></hos-icon-display>
-  {{ container?.name }}
-</h2>
+<div class="mt-2">
+  <p-button (onClick)="back()" label="Back" icon="pi pi-chevron-left" size="small"></p-button>
+</div>
 
-<h3 class="mb-2">Information</h3>
-<p-card styleClass="mt-0 w-6">
-  <div class="font-bold">Description</div>
-  <div class="text-color-secondary mt-2">{{container?.description}}</div>
-  <div class="font-bold mt-4">Taken space/Total Volume</div>
-  <div class="text-color-secondary mt-2">{{container?.takenSpace}}/{{container?.volume}}</div>
-</p-card>
-
-<h3 class="mb-2">Contents</h3>
-<p-card styleClass="mb-4">
-  <h4 class="my-2">Containers</h4>
-  <div class="grid">
-    <div class="col-2" *ngFor="let container of container?.containers">
-      <hos-thing-item-display size="small" [thing]="container"></hos-thing-item-display>
-    </div>
+<ng-container *ngIf="!loading">
+  <div class="flex justify-content-between">
+    <h2>
+      <hos-icon-display [item]="container"></hos-icon-display>
+      {{ container?.name }}
+    </h2>
+    <hos-containers-item-actions *ngIf="container" [container]="container" (delete)="deleteContainer(container)" [isView]="true"></hos-containers-item-actions>
   </div>
-</p-card>
 
-<p-card>
-  <h3>Items</h3>
-  <div class="grid">
-    <div class="col-2" *ngFor="let thing of container?.things">
-      <hos-thing-item-display size="small" [thing]="thing"></hos-thing-item-display>
+  <h3 class="mb-2">Information</h3>
+  <p-card styleClass="mt-0 md:w-6 w-12">
+    <div class="font-bold">Description</div>
+    <div class="text-color-secondary mt-2">{{container?.description}}</div>
+    <div class="font-bold mt-4">Taken space/Total Volume</div>
+    <div class="text-color-secondary mt-2">{{container?.takenSpace}}/{{container?.volume}}</div>
+  </p-card>
+
+  <h3 class="mb-2">Contents</h3>
+  <p-card styleClass="mb-4" *ngIf="container && container.containers.length > 0">
+    <h4 class="my-2">Containers</h4>
+    <div class="grid">
+      <div class="lg:col-2 md:col-4 col-6" *ngFor="let container of container?.containers">
+        <hos-thing-item-display size="small" [thing]="container"></hos-thing-item-display>
+      </div>
     </div>
-  </div>
-</p-card>
+  </p-card>
+
+  <p-card *ngIf="container && container.things.length > 0">
+    <h3>Items</h3>
+    <div class="grid">
+      <div class="lg:col-2 md:col-4 col-6" *ngFor="let thing of container?.things">
+        <hos-thing-item-display size="small" [thing]="thing"></hos-thing-item-display>
+      </div>
+    </div>
+  </p-card>
+</ng-container>
+
+<hos-containers-display-skeleton *ngIf="loading"></hos-containers-display-skeleton>

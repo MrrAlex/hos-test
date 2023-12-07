@@ -19,7 +19,13 @@ export class ThingsEffects {
           map((updated) =>
             ThingsActions.loadThingsSuccess({ things: updated }),
           ),
-          catchError(() => of(ThingsActions.loadThingsFail())),
+          catchError((error) =>
+            of(
+              ThingsActions.loadThingsFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -31,7 +37,13 @@ export class ThingsEffects {
       switchMap(({ thing }) =>
         this.endpointsService.saveThing(thing).pipe(
           map((updated) => ThingsActions.saveThingSuccess({ thing: updated })),
-          catchError(() => of(ThingsActions.saveThingFail())),
+          catchError((error) =>
+            of(
+              ThingsActions.saveThingFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -45,7 +57,13 @@ export class ThingsEffects {
           map((updated) =>
             ThingsActions.updateThingSuccess({ thing: updated }),
           ),
-          catchError(() => of(ThingsActions.updateThingFail())),
+          catchError((error) =>
+            of(
+              ThingsActions.updateThingFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -59,7 +77,13 @@ export class ThingsEffects {
           map((updated) =>
             ThingsActions.deleteThingSuccess({ thing: updated }),
           ),
-          catchError(() => of(ThingsActions.deleteThingFail())),
+          catchError((error) =>
+            of(
+              ThingsActions.deleteThingFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),

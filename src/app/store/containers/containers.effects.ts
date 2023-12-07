@@ -24,7 +24,13 @@ export class ContainersEffects {
           tap((updated) =>
             this.router.navigate(['/', 'containers', updated.container._id]),
           ),
-          catchError(() => of(ContainerActions.saveContainerFail())),
+          catchError((error) =>
+            of(
+              ContainerActions.saveContainerFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -33,12 +39,18 @@ export class ContainersEffects {
   loadContainers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ContainerActions.loadContainers),
-      switchMap(({includeChildContainers}) =>
+      switchMap(({ includeChildContainers }) =>
         this.endpointsService.loadContainers(includeChildContainers).pipe(
           map((updated) =>
             ContainerActions.loadContainersSuccess({ containers: updated }),
           ),
-          catchError(() => of(ContainerActions.loadContainersFail())),
+          catchError((error) =>
+            of(
+              ContainerActions.loadContainersFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -52,7 +64,13 @@ export class ContainersEffects {
           map((updated) =>
             ContainerActions.loadContainerSuccess({ container: updated }),
           ),
-          catchError(() => of(ContainerActions.loadContainerFail())),
+          catchError((error) =>
+            of(
+              ContainerActions.loadContainerFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -66,7 +84,13 @@ export class ContainersEffects {
           map((updated) =>
             ContainerActions.updateContainerSuccess({ container: updated }),
           ),
-          catchError(() => of(ContainerActions.updateContainerFail())),
+          catchError((error) =>
+            of(
+              ContainerActions.updateContainerFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -80,7 +104,14 @@ export class ContainersEffects {
           map((updated) =>
             ContainerActions.deleteContainerSuccess({ container: updated }),
           ),
-          catchError(() => of(ContainerActions.deleteContainerFail())),
+          tap(() => this.router.navigate(['/containers'])),
+          catchError((error) =>
+            of(
+              ContainerActions.deleteContainerFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
+          ),
         ),
       ),
     ),
@@ -91,10 +122,14 @@ export class ContainersEffects {
       ofType(ContainerActions.assignThingsToContainer),
       switchMap(({ id, items }) =>
         this.endpointsService.assignItemsToContainer(id, items).pipe(
-          map(() =>
-            ContainerActions.assignThingsToContainerSuccess(),
+          map(() => ContainerActions.assignThingsToContainerSuccess()),
+          catchError((error) =>
+            of(
+              ContainerActions.assignThingsToContainerFail({
+                message: 'error' in error ? error.error.message : '',
+              }),
+            ),
           ),
-          catchError(() => of(ContainerActions.assignThingsToContainerFail())),
         ),
       ),
     ),

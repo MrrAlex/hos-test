@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Observable, shareReplay, take} from 'rxjs';
 import { ContainersFacade } from '../../../store/containers';
 import { Container } from '../../model/container.model';
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'hos-containers-add-page',
@@ -13,6 +14,7 @@ export class ContainersAddPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private facade: ContainersFacade,
+    private _location: Location,
   ) {
     this.facade.loading$.subscribe((l) => {
       this.loading = l;
@@ -40,5 +42,9 @@ export class ContainersAddPageComponent implements OnInit {
     } else {
       this.facade.saveNewThing(container);
     }
+  }
+
+  back() {
+    this._location.back();
   }
 }

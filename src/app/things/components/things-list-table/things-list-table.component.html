@@ -1,16 +1,16 @@
 <div *ngIf="loading" class="mt-4">
   <div class="grid">
-    <div class="col-2">
+    <div class="lg:col-2 md:col-4 col-6">
       <p-skeleton styleClass="mb-2"></p-skeleton>
       <p-skeleton height="4rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton styleClass="mb-2"></p-skeleton>
     </div>
-    <div class="col-2">
+    <div class="lg:col-2 md:col-4 col-6">
       <p-skeleton styleClass="mb-2"></p-skeleton>
       <p-skeleton height="4rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton styleClass="mb-2"></p-skeleton>
     </div>
-    <div class="col-2">
+    <div class="lg:col-2 md:col-4 col-6">
       <p-skeleton styleClass="mb-2"></p-skeleton>
       <p-skeleton height="4rem" styleClass="mb-2"></p-skeleton>
       <p-skeleton styleClass="mb-2"></p-skeleton>
@@ -20,7 +20,7 @@
 
 <div *ngIf="!loading" class="flex mt-4">
   <div class="grid">
-    <div class="col-2" *ngFor="let thing of $any(things$ | async)">
+    <div class="lg:col-2 md:col-4 col-6" *ngFor="let thing of $any(things$ | async)">
       <hos-thing-item-display [thing]="thing" (thingDeleted)="deleteThing(thing)"
                               (thingEdited)="editThing(thing)"></hos-thing-item-display>
     </div>

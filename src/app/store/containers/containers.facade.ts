@@ -4,7 +4,10 @@ import {
   selectAll,
   selectAvailable,
   selectById,
+  selectContainersByIds,
   selectContainersLoading,
+  selectErrorMessage,
+  selectSuccessMessage,
 } from './containers.selectors';
 import { ContainerState } from './containers.reducer';
 import {
@@ -28,9 +31,15 @@ export class ContainersFacade {
 
   loading$ = this.store.pipe(select(selectContainersLoading));
   containers$ = this.store.pipe(select(selectAll));
+  errorMessage$ = this.store.pipe(select(selectErrorMessage));
+  successMessage$ = this.store.pipe(select(selectSuccessMessage));
+
+  public containerContainers$(ids: string[]) {
+    return this.store.pipe(select(selectContainersByIds(ids)));
+  }
 
   public selectAvailableContainers(id: string) {
-    return this.store.pipe(select(selectAvailable(id)))
+    return this.store.pipe(select(selectAvailable(id)));
   }
 
   public selectEntityById$(id: string) {
@@ -38,7 +47,7 @@ export class ContainersFacade {
   }
 
   loadContainersList(includeChildContainers = false) {
-    this.store.dispatch(loadContainers({includeChildContainers}));
+    this.store.dispatch(loadContainers({ includeChildContainers }));
   }
 
   saveNewThing(container: Container) {

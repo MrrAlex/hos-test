@@ -1,9 +1,12 @@
+<div class="mt-2">
+  <p-button (onClick)="back()" label="Back" icon="pi pi-chevron-left" size="small"></p-button>
+</div>
 <h2>
   <span *ngIf="!containerId">Add New</span>
   <span *ngIf="containerId">Edit</span>
   Container</h2>
 <p-card>
-  <hos-containers-add-form-skeleton *ngIf="containerId && !(container$ | async)"></hos-containers-add-form-skeleton>
-  <hos-containers-add-form *ngIf="!containerId || containerId && (container$ | async)" (saved)="saveContainer($event)"
+  <hos-containers-add-form-skeleton *ngIf="loading"></hos-containers-add-form-skeleton>
+  <hos-containers-add-form *ngIf="!loading" (saved)="saveContainer($event)"
                            [container]="container$ | async"></hos-containers-add-form>
 </p-card>

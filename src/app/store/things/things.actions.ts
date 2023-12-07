@@ -8,7 +8,10 @@ export const loadThingsSuccess = createAction(
   props<{ things: Thing[] }>(),
 );
 
-export const loadThingsFail = createAction('[Thing] Load Things Failed');
+export const loadThingsFail = createAction(
+  '[Thing] Load Things Failed',
+  props<{ message: string }>(),
+);
 
 export const saveThing = createAction(
   '[Thing] Save Thing',
@@ -20,7 +23,10 @@ export const saveThingSuccess = createAction(
   props<{ thing: Thing }>(),
 );
 
-export const saveThingFail = createAction('[Thing] Save Thing Failed');
+export const saveThingFail = createAction(
+  '[Thing] Save Thing Failed',
+  props<{ message: string }>(),
+);
 
 export const updateThing = createAction(
   '[Thing] Update Thing',
@@ -32,7 +38,10 @@ export const updateThingSuccess = createAction(
   props<{ thing: Thing }>(),
 );
 
-export const updateThingFail = createAction('[Thing] Update Thing Failed');
+export const updateThingFail = createAction(
+  '[Thing] Update Thing Failed',
+  props<{ message: string }>(),
+);
 
 export const deleteThing = createAction(
   '[Thing] Delete Thing',
@@ -44,4 +53,7 @@ export const deleteThingSuccess = createAction(
   props<{ thing: Thing }>(),
 );
 
-export const deleteThingFail = createAction('[Thing] Delete Thing Failed');
+export const deleteThingFail = createAction(
+  '[Thing] Delete Thing Failed',
+  props<{ message: string }>(),
+);
