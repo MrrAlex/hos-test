@@ -1,5 +1,5 @@
 export class Constants {
-  private static baseUrl = 'http://localhost:3000';
+  private static baseUrl = 'https://fc-cvw.xyz/hos-be';
 
   public static containerApi = `${Constants.baseUrl}/containers`
   public static containerByIdApi = (id: string) => `${Constants.containerApi}/${id}`
